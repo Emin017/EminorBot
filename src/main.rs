@@ -1,19 +1,8 @@
 use dotenv::dotenv;
 use teloxide::prelude::*;
 
-use teloxide::utils::command::{BotCommands, ParseError};
-
-#[derive(BotCommands, Clone)]
-#[command(
-    rename_rule = "lowercase",
-    description = "These commands are supported:"
-)]
-pub enum Command {
-    #[command(description = "display this text.")]
-    Help,
-    #[command(description = "handle a username.")]
-    Username(String),
-}
+mod parser;
+use parser::Command;
 
 #[tokio::main]
 async fn main() {

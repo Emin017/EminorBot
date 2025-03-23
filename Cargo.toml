@@ -18,3 +18,7 @@ tokio = { version = "1.44", features = ["full"] }
 tokio-util = "*"
 cron = "0.15.0"
 chrono = "*"
+
+reqwest = { version = "0.11", features = ["json"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"

@@ -6,6 +6,9 @@ on:
 jobs:
   lockfile:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -15,7 +18,7 @@ jobs:
         if: ${{ github.event_name != 'pull_request' }}
         uses: DeterminateSystems/update-flake-lock@v24
         with:
-          token: ${{ secrets.UPDATE_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           git-author-name: 'github-actions[bot]'
           git-author-email: 'github-actions[bot]@users.noreply.github.com'
           git-committer-name: 'github-actions[bot]'
@@ -24,3 +27,5 @@ jobs:
           pr-labels: | # Labels to be set on the PR
             dependencies
             github-actions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

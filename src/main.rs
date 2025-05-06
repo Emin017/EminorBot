@@ -2,12 +2,12 @@ use dotenv::dotenv;
 use teloxide::types::BotCommandScope;
 use teloxide::utils::command::BotCommands;
 use teloxide::{
-    dispatching::{dialogue::InMemStorage, HandlerExt},
+    dispatching::{HandlerExt, dialogue::InMemStorage},
     prelude::*,
 };
 
 mod parser;
-use parser::{parse_custom_commands, Command};
+use parser::{Command, parse_custom_commands};
 
 mod handle;
 use handle::answer;

@@ -1,4 +1,4 @@
-use reqwest::{header, Client};
+use reqwest::{Client, header};
 use serde::{Deserialize, Serialize};
 use std::env;
 use std::error::Error;

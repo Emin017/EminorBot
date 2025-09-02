@@ -46,7 +46,7 @@ async fn run() {
         )
         .branch(
             Update::filter_message()
-                .filter_map(parse_custom_commands)
+                .filter_command::<Command>()
                 .endpoint(|bot: Bot, (msg, cmd): (Message, Command)| async move {
                     answer(bot, msg, cmd).await
                 }),

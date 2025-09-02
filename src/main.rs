@@ -7,7 +7,7 @@ use teloxide::{
 };
 
 mod parser;
-use parser::{Command, parse_custom_commands};
+use parser::Command;
 
 mod handle;
 use handle::answer;
@@ -38,19 +38,13 @@ async fn run() {
 
     let storage = InMemStorage::<DialogueState>::new();
 
-    let handler = dptree::entry()
-        .branch(
-            Update::filter_message()
-                .filter_command::<Command>()
-                .endpoint(answer),
-        )
-        .branch(
-            Update::filter_message()
-                .filter_command::<Command>()
-                .endpoint(|bot: Bot, (msg, cmd): (Message, Command)| async move {
-                    answer(bot, msg, cmd).await
-                }),
-        );
+    let handler = dptree::entry().branch(
+        Update::filter_message()
+            .filter_command::<Command>()
+            .endpoint(
+                |bot: Bot, msg: Message, cmd: Command| async move { answer(bot, msg, cmd).await },
+            ),
+    );
 
     Dispatcher::builder(bot, handler)
         .dependencies(dptree::deps![storage])
